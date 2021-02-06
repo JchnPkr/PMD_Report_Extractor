@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: de.PMD_Report_Extractor.util.ReportFormatterTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.409 s - in de.PMD_Report_Extractor.util.ReportFormatterTest

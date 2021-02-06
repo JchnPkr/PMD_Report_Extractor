@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+  <Appenders>
+    <Console name="ConsoleAppender" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{ISO8601};%t;%x;%c{1};%M;%1p;-%m%n" />
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="ALL">
+      <AppenderRef ref="ConsoleAppender" />
+    </Root>
+  </Loggers>
+</Configuration>

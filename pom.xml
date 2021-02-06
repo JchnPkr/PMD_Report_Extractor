@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>de.util.itzbund</groupId>
+  <artifactId>PMD_Report_Extractor</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>PMD_Report_Extractor</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.failsafe.version>3.0.0-M3</maven.failsafe.version>
+    <maven.surefire.version>3.0.0-M3</maven.surefire.version>
+    <junit.jupiter.platform.surefire.version>1.3.2</junit.jupiter.platform.surefire.version>
+  </properties>
+    
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.3</version>
+    </dependency>
+   <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.5.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.5.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>1.5.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>2.25.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.14.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <finalName>PMD_Report_Extractor</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>de.PMD_Report_Extractor.App</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- Für Tests -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.version}</version>
+          <!-- JUnit 5 Plattform muss bei älteren Maven-Versionen mitgegeben werden -->
+          <dependencies>
+              <dependency>
+                  <groupId>org.junit.platform</groupId>
+                  <artifactId>junit-platform-surefire-provider</artifactId>
+                  <version>${junit.jupiter.platform.surefire.version}</version>
+              </dependency>
+          </dependencies>
+        <configuration>
+          <!-- Skips unit tests if the value of skip.unit.tests property is true -->
+          <skipTests>false</skipTests>
+        </configuration>
+      </plugin>
+
+      <!-- Failsafe-Plugin, um Integrationstests überspringen zu können -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${maven.failsafe.version}</version>
+          <!-- JUnit 5 Plattform muss bei älteren Maven-Versionen mitgegeben werden -->
+          <dependencies>
+              <dependency>
+                  <groupId>org.junit.platform</groupId>
+                  <artifactId>junit-platform-surefire-provider</artifactId>
+                  <version>${junit.jupiter.platform.surefire.version}</version>
+              </dependency>
+          </dependencies>        
+        <executions>
+          <execution>
+            <id>integration-tests</id>
+            <phase>test</phase>
+            <goals>
+              <!-- The integration-test goals runs the tests and creates reports, the verify goal checks if they were successfull -->
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+            <configuration>
+              <!-- Skips integration tests if the value of skip.integration.tests property is true -->
+              <skipITs>false</skipITs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
