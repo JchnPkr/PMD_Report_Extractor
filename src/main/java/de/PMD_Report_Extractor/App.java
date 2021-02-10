@@ -1,6 +1,7 @@
 package de.PMD_Report_Extractor;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -38,7 +39,7 @@ public class App {
 			ResourceFileHandler.writeToFile(pathToExcludeResource, sbMerge);
 		} else {
 			LOG.error("--- wrong number of arguments. A path to a PMD xml report, a path to an exlude file "
-					+ "and a PMD rule are mandatory.\n Arguments given: " + args.toString());
+					+ "and a PMD rule are mandatory.\n Arguments given: " + Arrays.toString(args));
 			System.exit(1);
 		}
 
