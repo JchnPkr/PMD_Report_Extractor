@@ -30,6 +30,7 @@
 		<maven.jxr.version>3.0.0</maven.jxr.version>
 		<skip.unit.tests>false</skip.unit.tests>
 		<skip.integration.tests>true</skip.integration.tests>
+		<path.to.suppressfile.wo.slash>${project.basedir}/..</path.to.suppressfile.wo.slash>    
 	</properties>
 
 	<profiles>
