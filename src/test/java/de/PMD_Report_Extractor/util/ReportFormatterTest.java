@@ -1,6 +1,7 @@
 package de.PMD_Report_Extractor.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -103,5 +104,11 @@ class ReportFormatterTest {
 			LOG.info("\n" + result.toString());
 			assertEquals(expected.toString(), result.toString());
 		}
+	}
+
+	@Test
+	void formatToExcludeStyleTest() {
+//		ReportFormatter.formatToExcludeStyle(Set<Node> filteredNodes);
+		fail("TODO");
 	}
 }
