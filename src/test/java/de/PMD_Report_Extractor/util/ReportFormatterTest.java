@@ -4,17 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class ReportFormatterTest {
 	private static final Logger LOG = LogManager.getLogger(ReportFormatterTest.class);
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
 
 	@Nested
 	@DisplayName("Methode: merge")

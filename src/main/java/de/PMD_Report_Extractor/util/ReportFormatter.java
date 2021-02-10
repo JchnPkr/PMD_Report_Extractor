@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Node;
 
-public final class ReportFormatter {
+public class ReportFormatter {
 	private static final Logger LOG = LogManager.getLogger(ReportFormatter.class);
 
 	private ReportFormatter() {

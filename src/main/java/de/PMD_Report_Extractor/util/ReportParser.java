@@ -19,7 +19,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public final class ReportParser {
+public class ReportParser {
 	private static final Logger LOG = LogManager.getLogger(ReportParser.class);
 
 	private ReportParser() {

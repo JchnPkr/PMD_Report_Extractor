@@ -38,9 +38,9 @@ public class App {
 			ResourceFileHandler.writeToConsole(sbMerge, "result from merge");
 			ResourceFileHandler.writeToFile(pathToExcludeResource, sbMerge);
 		} else {
-			LOG.error("--- wrong number of arguments. A path to a PMD xml report, a path to an exlude file "
-					+ "and a PMD rule are mandatory.\n Arguments given: " + Arrays.toString(args));
-			System.exit(1);
+			throw new IllegalArgumentException(
+					"Wrong number of arguments. A path to a PMD xml report, a path to an exlude file "
+							+ "and a PMD rule are mandatory.\n Arguments given: " + Arrays.toString(args));
 		}
 
 		LOG.info("--- report extracted successfully");
