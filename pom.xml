@@ -13,37 +13,26 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<maven.failsafe.version>3.0.0-M3</maven.failsafe.version>
 		<maven.surefire.version>3.0.0-M3</maven.surefire.version>
 		<junit.jupiter.platform.surefire.version>1.3.2</junit.jupiter.platform.surefire.version>
-		<maven.checkstyle.version>3.0.0</maven.checkstyle.version>
-		<maven.pmd.version>3.12.0</maven.pmd.version>
+		<maven.checkstyle.version>3.1.1</maven.checkstyle.version>
+		<maven.pmd.version>3.14.0</maven.pmd.version>
 		<maven.javadoc.version>3.0.0-M1</maven.javadoc.version>
 		<maven.compiler.version>3.8.1</maven.compiler.version>
-		<maven.spotbugs.version>3.1.12</maven.spotbugs.version>
+		<maven.spotbugs.version>4.0.0</maven.spotbugs.version>
 		<maven.findsecbugs.version>1.9.0</maven.findsecbugs.version>
 		<maven.project-info-reports.version>3.0.0</maven.project-info-reports.version>
 		<maven.failsafe.version>3.0.0-M3</maven.failsafe.version>
-		<maven.site.version>3.8.2</maven.site.version>
+		<maven.site.version>3.9.1</maven.site.version>
 		<maven.jxr.version>3.0.0</maven.jxr.version>
 		<skip.unit.tests>false</skip.unit.tests>
 		<skip.integration.tests>true</skip.integration.tests>
-		<path.to.suppressfile.wo.slash>${project.basedir}/..</path.to.suppressfile.wo.slash>    
+		<path.to.suppressfile.wo.slash>./analysis</path.to.suppressfile.wo.slash>
 	</properties>
-
 	<profiles>
-		<profile>
-			<id>doclint-java8-disable</id>
-			<activation>
-				<jdk>[1.8,)</jdk>
-			</activation>
-			<properties>
-				<javadoc.opts>-Xdoclint:none</javadoc.opts>
-			</properties>
-		</profile>
-
 		<profile>
 			<id>integration-test</id>
 			<properties>
@@ -163,7 +152,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.2</version>
+				<version>0.8.5</version>
 				<executions>
 					<execution>
 						<goals>
@@ -205,44 +194,99 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>${maven.site.version}</version>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>${maven.spotbugs.version}</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>${maven.checkstyle.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>8.29</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>${maven.pmd.version}</version>
 				<configuration>
-					<rulesets>
-						<ruleset></ruleset>
-					</rulesets>
+					<failOnViolation>true</failOnViolation>
 					<printFailingErrors>true</printFailingErrors>
 					<analysisCache>true</analysisCache>
+					<linkXRef>false</linkXRef>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>cpd</goal>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven.site.version}</version>
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<reporting>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${maven.project-info-reports.version}</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+							<report>dependencies</report>
+							<report>scm</report>
+							<report>summary</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<configuration>
-					<configLocation></configLocation>
-					<headerLocation></headerLocation>
-					<suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
-					<suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-					<sourceDirectories>
-						<sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-						<sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
-					</sourceDirectories>
+					<configLocation>${path.to.suppressfile.wo.slash}/checkstyle.xml</configLocation>
+					<linkXRef>false</linkXRef>
+					<encoding>UTF-8</encoding>
+					<consoleOutput>true</consoleOutput>
+					<failsOnError>true</failsOnError>
 				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>checkstyle</report>
+						</reports>
+					</reportSet>
+				</reportSets>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -251,16 +295,12 @@
 				<configuration>
 					<linkXref>false</linkXref>
 					<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-					<targetJdk>${java.version}</targetJdk>
-					<excludeFromFailureFile>${path.to.suppressfile.wo.slash}/exclude-pmd.properties</excludeFromFailureFile>
-					<excludes>
-						<exclude></exclude>
-					</excludes>
+					<excludeFromFailureFile>${path.to.suppressfile.wo.slash}/pmd-exclude.properties</excludeFromFailureFile>
 					<excludeRoots>
 						<excludeRoot>target</excludeRoot>
 					</excludeRoots>
 					<rulesets>
-						<ruleset></ruleset>
+						<ruleset>${path.to.suppressfile.wo.slash}/pmd-ruleset.xml</ruleset>
 					</rulesets>
 				</configuration>
 			</plugin>
@@ -268,10 +308,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>${maven.javadoc.version}</version>
-				<!-- DocLint je nach Profil ausschalten (siehe oben) -->
-				<configuration>
-					<additionalparam>${javadoc.opts}</additionalparam>
-				</configuration>
 				<reportSets>
 					<reportSet>
 						<id>aggregate</id>
@@ -287,7 +323,7 @@
 				<artifactId>spotbugs-maven-plugin</artifactId>
 				<version>${maven.spotbugs.version}</version>
 				<configuration>
-					<excludeFilterFile>${path.to.suppressfile.wo.slash}/findbugsExcludes.xml</excludeFilterFile>
+					<excludeFilterFile>${path.to.suppressfile.wo.slash}/spotbugs-exclude.xml</excludeFilterFile>
 					<plugins>
 						<plugin>
 							<groupId>com.h3xstream.findsecbugs</groupId>
@@ -299,18 +335,10 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>${maven.project-info-reports.version}</version>
-				<configuration>
-					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>${maven.jxr.version}</version>
 			</plugin>
 		</plugins>
 	</reporting>
-	
+
 </project>
