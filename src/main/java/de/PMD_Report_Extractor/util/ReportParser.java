@@ -41,9 +41,7 @@ public class ReportParser {
 		LOG.debug("--- filtering input");
 
 		NodeList violationTags = xml.getElementsByTagName("violation");
-
 		Stream<Node> nodeStream = IntStream.range(0, violationTags.getLength()).mapToObj(violationTags::item);
-
 		Set<Node> filteredTags = nodeStream
 				.filter(t -> t.getAttributes().getNamedItem("rule").getNodeValue().equals(rule))
 				.collect(Collectors.toSet());
