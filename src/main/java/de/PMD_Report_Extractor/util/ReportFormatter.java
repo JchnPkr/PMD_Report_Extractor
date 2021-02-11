@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.maven.shared.utils.StringUtils;
 import org.w3c.dom.Node;
 
 public class ReportFormatter {
@@ -20,7 +21,7 @@ public class ReportFormatter {
 		LOG.debug("--- formatting node entries");
 
 		Set<String> results = new TreeSet<>();
-		int singleCount = 0;
+		int count = 0;
 
 		for (Node n : filteredNodes) {
 			StringBuffer sb = new StringBuffer();
@@ -29,17 +30,14 @@ public class ReportFormatter {
 			String classAtr = n.getAttributes().getNamedItem("class").getNodeValue();
 			sb.append(classAtr).append('=');
 			String ruleAtr = n.getAttributes().getNamedItem("rule").getNodeValue();
-			sb.append(ruleAtr).append('\n');
+			sb.append(ruleAtr);
 			results.add(sb.toString());
-			singleCount++;
+			count++;
 		}
 
-		StringBuffer formattedResult = new StringBuffer();
-		results.forEach(r -> formattedResult.append(r));
+		LOG.debug("--- found " + count + " entries, formatted " + results.size() + " exclude entries");
 
-		LOG.debug("--- found " + singleCount + " entries, formatted " + results.size() + " exclude entries");
-
-		return formattedResult.deleteCharAt(formattedResult.lastIndexOf("\n"));
+		return transformToBuffer(results);
 	}
 
 	/**
@@ -67,6 +65,8 @@ public class ReportFormatter {
 
 				Optional<String> match = excludeEntries.stream().filter(r -> r.contains(path)).findFirst();
 				updateOrAddExcludeEntry(excludeEntries, extractEntry, newRule, match);
+			} else {
+				LOG.debug("--- skipping empty line");
 			}
 		});
 
@@ -119,10 +119,13 @@ public class ReportFormatter {
 		}
 	}
 
+	/**
+	 * creates a StringBuffer from the given set entries, separated by line break
+	 * 
+	 * @param excludeEntries
+	 * @return a StringBuffer with the given entries
+	 */
 	private static StringBuffer transformToBuffer(Set<String> excludeEntries) {
-		StringBuffer result = new StringBuffer();
-		excludeEntries.forEach(e -> result.append(e).append('\n'));
-
-		return result.deleteCharAt(result.lastIndexOf("\n"));
+		return new StringBuffer().append(StringUtils.join(excludeEntries.toArray(), "\n"));
 	}
 }
