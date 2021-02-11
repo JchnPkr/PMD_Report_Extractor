@@ -27,14 +27,14 @@ public class App {
 			final String pathToExcludeResource = args[1];
 			final String rule = args[2];
 
-			StringBuffer sbIn = ResourceFileHandler.readFile(pathToPmdResource);
+			StringBuilder sbIn = ResourceFileHandler.readFile(pathToPmdResource);
 			Document xml = ReportParser.parseToXml(sbIn);
 			Set<Node> filteredNodes = ReportParser.filterByRule(xml, rule);
-			StringBuffer sbExtract = ReportFormatter.formatToExcludeStyle(filteredNodes);
+			StringBuilder sbExtract = ReportFormatter.formatToExcludeStyle(filteredNodes);
 			ResourceFileHandler.writeToConsole(sbExtract, "result from extraction");
 
-			StringBuffer sbExclude = ResourceFileHandler.readFile(pathToExcludeResource);
-			StringBuffer sbMerge = ReportFormatter.merge(sbExclude, sbExtract);
+			StringBuilder sbExclude = ResourceFileHandler.readFile(pathToExcludeResource);
+			StringBuilder sbMerge = ReportFormatter.merge(sbExclude, sbExtract);
 			ResourceFileHandler.writeToConsole(sbMerge, "result from merge");
 			ResourceFileHandler.writeToFile(pathToExcludeResource, sbMerge);
 		} else {

@@ -51,7 +51,7 @@ class ReportParserTest {
 
 	@Test
 	void parseToXmlTest() throws ParserConfigurationException, SAXException, IOException {
-		StringBuffer sbIn = new StringBuffer()
+		StringBuilder sbIn = new StringBuilder()
 				.append(XMLStringBuilder.get4EntriesFrom2ClassesWith2Rules1ClassRuleDuplicate());
 
 		Document doc = ReportParser.parseToXml(sbIn);

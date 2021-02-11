@@ -17,14 +17,14 @@ public class ReportFormatter {
 		super();
 	}
 
-	public static StringBuffer formatToExcludeStyle(Set<Node> filteredNodes) {
+	public static StringBuilder formatToExcludeStyle(Set<Node> filteredNodes) {
 		LOG.debug("--- formatting node entries");
 
 		Set<String> results = new TreeSet<>();
 		int count = 0;
 
 		for (Node n : filteredNodes) {
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 			String packageAtr = n.getAttributes().getNamedItem("package").getNodeValue();
 			sb.append(packageAtr).append('.');
 			String classAtr = n.getAttributes().getNamedItem("class").getNodeValue();
@@ -52,7 +52,7 @@ public class ReportFormatter {
 	 * @param sbExtract new extracted entries from report
 	 * @return the merged exclude entries
 	 */
-	public static StringBuffer merge(StringBuffer sbExclude, StringBuffer sbExtract) {
+	public static StringBuilder merge(StringBuilder sbExclude, StringBuilder sbExtract) {
 		LOG.debug("--- merging excludes resource with report extracts");
 
 		Set<String> excludeEntries = transformToSet(sbExclude);
@@ -79,9 +79,9 @@ public class ReportFormatter {
 	 * @param sb
 	 * @return line break separated entries as set
 	 */
-	private static Set<String> transformToSet(StringBuffer sb) {
+	private static Set<String> transformToSet(StringBuilder sb) {
 		String tmp = sb.toString().replaceAll("\r", "");
-		sb = new StringBuffer(tmp);
+		sb = new StringBuilder(tmp);
 
 		if (!sb.toString().isEmpty()) {
 			if (sb.toString().contains("\n")) {
@@ -120,12 +120,12 @@ public class ReportFormatter {
 	}
 
 	/**
-	 * creates a StringBuffer from the given set entries, separated by line break
+	 * creates a StringBuilder from the given set entries, separated by line break
 	 * 
 	 * @param excludeEntries
-	 * @return a StringBuffer with the given entries
+	 * @return a StringBuilder with the given entries
 	 */
-	private static StringBuffer transformToBuffer(Set<String> excludeEntries) {
-		return new StringBuffer().append(StringUtils.join(excludeEntries.toArray(), "\n"));
+	private static StringBuilder transformToBuffer(Set<String> excludeEntries) {
+		return new StringBuilder().append(StringUtils.join(excludeEntries.toArray(), "\n"));
 	}
 }

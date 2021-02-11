@@ -27,26 +27,26 @@ class ReportFormatterTest {
 	private static final Logger LOG = LogManager.getLogger(ReportFormatterTest.class);
 
 	@Nested
-	@DisplayName("Method: merge(StringBuffer sbExclude, StringBuffer sbExtract)")
+	@DisplayName("Method: merge(StringBuilder sbExclude, StringBuilder sbExtract)")
 	class MergeExcludesTest {
 		@Test
 		void merge_nonExisting_existing_nonrelated_new_Test() {
-			StringBuffer expected = new StringBuffer(
+			StringBuilder expected = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidLiteralsInIfCondition,AvoidCatchingGenericException\n"
 							+ "de.zivit.kista.anfrage.service.impl.FuServiceService=AvoidCatchingGenericException,ExcessiveImports\n"
 							+ "de.zivit.kista.antwort.service.impl.BarServiceService=MoreThanOneLogger\n"
 							+ "de.zivit.kista.dataaccess.AnotherService=AvoidCatchingGenericException");
 
-			StringBuffer sbExtract = new StringBuffer(
+			StringBuilder sbExtract = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidCatchingGenericException\r\n"
 							+ "de.zivit.kista.anfrage.service.impl.FuServiceService=AvoidCatchingGenericException\r\n"
 							+ "de.zivit.kista.dataaccess.AnotherService=AvoidCatchingGenericException\r\n");
 
-			StringBuffer sbResource = new StringBuffer("de.anyName.service.impl.Service=AvoidLiteralsInIfCondition\r\n"
+			StringBuilder sbResource = new StringBuilder("de.anyName.service.impl.Service=AvoidLiteralsInIfCondition\r\n"
 					+ "de.zivit.kista.anfrage.service.impl.FuServiceService=AvoidCatchingGenericException,ExcessiveImports\r\n"
 					+ "de.zivit.kista.antwort.service.impl.BarServiceService=MoreThanOneLogger\r\n");
 
-			StringBuffer result = ReportFormatter.merge(sbResource, sbExtract);
+			StringBuilder result = ReportFormatter.merge(sbResource, sbExtract);
 
 			LOG.debug("\n" + result.toString());
 			assertEquals(expected.toString(), result.toString());
@@ -54,16 +54,16 @@ class ReportFormatterTest {
 
 		@Test
 		void merge_existing_Test() {
-			StringBuffer expected = new StringBuffer(
+			StringBuilder expected = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidCatchingGenericException,AvoidLiteralsInIfCondition");
 
-			StringBuffer sbExtract = new StringBuffer(
+			StringBuilder sbExtract = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidCatchingGenericException\r\n");
 
-			StringBuffer sbResource = new StringBuffer(
+			StringBuilder sbResource = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidCatchingGenericException,AvoidLiteralsInIfCondition\r\n");
 
-			StringBuffer result = ReportFormatter.merge(sbResource, sbExtract);
+			StringBuilder result = ReportFormatter.merge(sbResource, sbExtract);
 
 			LOG.debug("\n" + result.toString());
 			assertEquals(expected.toString(), result.toString());
@@ -71,16 +71,16 @@ class ReportFormatterTest {
 
 		@Test
 		void merge_nonexisting_Test() {
-			StringBuffer expected = new StringBuffer(
+			StringBuilder expected = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidLiteralsInIfCondition,AvoidCatchingGenericException");
 
-			StringBuffer sbExtract = new StringBuffer(
+			StringBuilder sbExtract = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidCatchingGenericException\r\n");
 
-			StringBuffer sbResource = new StringBuffer(
+			StringBuilder sbResource = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidLiteralsInIfCondition\r\n");
 
-			StringBuffer result = ReportFormatter.merge(sbResource, sbExtract);
+			StringBuilder result = ReportFormatter.merge(sbResource, sbExtract);
 
 			LOG.debug("\n" + result.toString());
 			assertEquals(expected.toString(), result.toString());
@@ -88,14 +88,14 @@ class ReportFormatterTest {
 
 		@Test
 		void merge_new_Test() {
-			StringBuffer expected = new StringBuffer("de.anyName.service.impl.Service=AvoidCatchingGenericException");
+			StringBuilder expected = new StringBuilder("de.anyName.service.impl.Service=AvoidCatchingGenericException");
 
-			StringBuffer sbExtract = new StringBuffer(
+			StringBuilder sbExtract = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidCatchingGenericException\r\n");
 
-			StringBuffer sbResource = new StringBuffer();
+			StringBuilder sbResource = new StringBuilder();
 
-			StringBuffer result = ReportFormatter.merge(sbResource, sbExtract);
+			StringBuilder result = ReportFormatter.merge(sbResource, sbExtract);
 
 			LOG.debug("\n" + result.toString() + "!!");
 			assertEquals(expected.toString(), result.toString());
@@ -103,14 +103,14 @@ class ReportFormatterTest {
 
 		@Test
 		void merge_new_withoutLineBreak_Test() {
-			StringBuffer expected = new StringBuffer("de.anyName.service.impl.Service=AvoidCatchingGenericException");
+			StringBuilder expected = new StringBuilder("de.anyName.service.impl.Service=AvoidCatchingGenericException");
 
-			StringBuffer sbExtract = new StringBuffer(
+			StringBuilder sbExtract = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidCatchingGenericException");
 
-			StringBuffer sbResource = new StringBuffer();
+			StringBuilder sbResource = new StringBuilder();
 
-			StringBuffer result = ReportFormatter.merge(sbResource, sbExtract);
+			StringBuilder result = ReportFormatter.merge(sbResource, sbExtract);
 
 			LOG.debug("\n" + result.toString() + "!!");
 			assertEquals(expected.toString(), result.toString());
@@ -118,11 +118,11 @@ class ReportFormatterTest {
 
 		@Test
 		void merge_empty_Test() {
-			StringBuffer expected = new StringBuffer();
-			StringBuffer sbExtract = new StringBuffer();
-			StringBuffer sbResource = new StringBuffer();
+			StringBuilder expected = new StringBuilder();
+			StringBuilder sbExtract = new StringBuilder();
+			StringBuilder sbResource = new StringBuilder();
 
-			StringBuffer result = ReportFormatter.merge(sbResource, sbExtract);
+			StringBuilder result = ReportFormatter.merge(sbResource, sbExtract);
 
 			LOG.debug("\n" + result.toString() + "!!");
 			assertEquals(expected.toString(), result.toString());
@@ -130,17 +130,17 @@ class ReportFormatterTest {
 
 		@Test
 		void merge_emptyLines_Test() {
-			StringBuffer expected = new StringBuffer(
+			StringBuilder expected = new StringBuilder(
 					"de.anyName.service.impl.AnotherService=AvoidLiteralsInIfCondition\n"
 							+ "de.anyName.service.impl.Service=AvoidCatchingGenericException");
 
-			StringBuffer sbExtract = new StringBuffer(
+			StringBuilder sbExtract = new StringBuilder(
 					"de.anyName.service.impl.AnotherService=AvoidLiteralsInIfCondition\n\n"
 							+ "de.anyName.service.impl.Service=AvoidCatchingGenericException");
 
-			StringBuffer sbResource = new StringBuffer();
+			StringBuilder sbResource = new StringBuilder();
 
-			StringBuffer result = ReportFormatter.merge(sbResource, sbExtract);
+			StringBuilder result = ReportFormatter.merge(sbResource, sbExtract);
 
 			LOG.debug("\n" + result.toString() + "!!");
 			assertEquals(expected.toString(), result.toString());
@@ -148,17 +148,17 @@ class ReportFormatterTest {
 
 		@Test
 		void merge_nonrelated_Test() {
-			StringBuffer expected = new StringBuffer(
+			StringBuilder expected = new StringBuilder(
 					"de.anyName.service.impl.AnotherService=AvoidLiteralsInIfCondition\n"
 							+ "de.anyName.service.impl.Service=AvoidCatchingGenericException");
 
-			StringBuffer sbExtract = new StringBuffer(
+			StringBuilder sbExtract = new StringBuilder(
 					"de.anyName.service.impl.Service=AvoidCatchingGenericException\r\n");
 
-			StringBuffer sbResource = new StringBuffer(
+			StringBuilder sbResource = new StringBuilder(
 					"de.anyName.service.impl.AnotherService=AvoidLiteralsInIfCondition\r\n");
 
-			StringBuffer result = ReportFormatter.merge(sbResource, sbExtract);
+			StringBuilder result = ReportFormatter.merge(sbResource, sbExtract);
 
 			LOG.debug("\n" + result.toString());
 			assertEquals(expected.toString(), result.toString());
@@ -186,7 +186,7 @@ class ReportFormatterTest {
 					.mapToObj(violationTags::item)
 					.collect(Collectors.toSet());
 
-			StringBuffer result = ReportFormatter.formatToExcludeStyle(nodes);
+			StringBuilder result = ReportFormatter.formatToExcludeStyle(nodes);
 
 			assertEquals(expected, result.toString());
 		}

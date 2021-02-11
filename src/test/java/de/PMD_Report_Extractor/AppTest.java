@@ -42,15 +42,15 @@ public class AppTest {
 		String[] args = { "reportPath", "excludePath", "rule" };
 		Document xml = Mockito.mock(Document.class);
 		Set<Node> filteredNodes = Collections.emptySet();
-		StringBuffer sbExtract = new StringBuffer().append("extract");
-		StringBuffer sbExclude = new StringBuffer().append("exclude");
-		StringBuffer sbMerge = new StringBuffer().append("merge");
+		StringBuilder sbExtract = new StringBuilder().append("extract");
+		StringBuilder sbExclude = new StringBuilder().append("exclude");
+		StringBuilder sbMerge = new StringBuilder().append("merge");
 
 		try (MockedStatic<ResourceFileHandler> fileHandlerMock = Mockito.mockStatic(ResourceFileHandler.class);
 				MockedStatic<ReportParser> parserMock = Mockito.mockStatic(ReportParser.class);
 				MockedStatic<ReportFormatter> fomatterMock = Mockito.mockStatic(ReportFormatter.class)) {
-			fileHandlerMock.when(() -> ResourceFileHandler.readFile(args[0])).thenReturn(new StringBuffer());
-			parserMock.when(() -> ReportParser.parseToXml(any(StringBuffer.class))).thenReturn(xml);
+			fileHandlerMock.when(() -> ResourceFileHandler.readFile(args[0])).thenReturn(new StringBuilder());
+			parserMock.when(() -> ReportParser.parseToXml(any(StringBuilder.class))).thenReturn(xml);
 			parserMock.when(() -> ReportParser.filterByRule(xml, args[2])).thenReturn(filteredNodes);
 			fomatterMock.when(() -> ReportFormatter.formatToExcludeStyle(filteredNodes)).thenReturn(sbExtract);
 			fileHandlerMock.when(() -> ResourceFileHandler.readFile(args[1])).thenReturn(sbExclude);

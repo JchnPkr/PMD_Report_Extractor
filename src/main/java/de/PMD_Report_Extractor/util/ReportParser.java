@@ -26,7 +26,7 @@ public class ReportParser {
 		super();
 	}
 
-	public static Document parseToXml(StringBuffer sbIn)
+	public static Document parseToXml(StringBuilder sbIn)
 			throws ParserConfigurationException, SAXException, IOException {
 		LOG.debug("--- parsing input");
 

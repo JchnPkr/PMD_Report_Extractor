@@ -35,7 +35,7 @@ class ResourceFileHandlerTest {
 
 	@Test
 	void readFileTest() throws IOException {
-		StringBuffer sb = ResourceFileHandler.readFile(RESOURCE_PATH + TESTFILE);
+		StringBuilder sb = ResourceFileHandler.readFile(RESOURCE_PATH + TESTFILE);
 
 		assertEquals("test content\n", sb.toString());
 	}
@@ -44,7 +44,7 @@ class ResourceFileHandlerTest {
 	void writeToFileTest() throws IOException {
 		String fileName = "out.txt";
 		String content = "test text";
-		StringBuffer sbOut = new StringBuffer().append(content);
+		StringBuilder sbOut = new StringBuilder().append(content);
 
 		ResourceFileHandler.writeToFile(RESOURCE_PATH + fileName, sbOut);
 
@@ -59,7 +59,7 @@ class ResourceFileHandlerTest {
 		String title = "test titel";
 		String msg = "test message";
 
-		StringBuffer sbOut = new StringBuffer().append(msg);
+		StringBuilder sbOut = new StringBuilder().append(msg);
 
 		String expectedMsg1 = "--- begin of content " + title + ":\n" + sbOut.toString();
 		String expectedMsg2 = "--- end of content " + title;
