@@ -1,4 +1,4 @@
-package de.PMD_Report_Extractor.util;
+package de.pmd_report_extractor.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,6 +22,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import builder.XMLStringBuilder;
+import de.pmd_report_extractor.util.ReportFormatter;
 
 class ReportFormatterTest {
 	private static final Logger LOG = LogManager.getLogger(ReportFormatterTest.class);

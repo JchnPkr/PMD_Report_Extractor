@@ -1,4 +1,4 @@
-package de.PMD_Report_Extractor.util;
+package de.pmd_report_extractor.util;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,6 +21,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import de.pmd_report_extractor.util.ResourceFileHandler;
 
 @ExtendWith(MockitoExtension.class)
 class ResourceFileHandlerTest {

@@ -1,4 +1,4 @@
-package de.PMD_Report_Extractor.util;
+package de.pmd_report_extractor.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -19,6 +19,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import builder.XMLStringBuilder;
+import de.pmd_report_extractor.util.ReportParser;
 
 class ReportParserTest {
 

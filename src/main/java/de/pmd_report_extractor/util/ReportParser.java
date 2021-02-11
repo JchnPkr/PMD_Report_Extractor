@@ -1,4 +1,4 @@
-package de.PMD_Report_Extractor.util;
+package de.pmd_report_extractor.util;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,6 +32,8 @@ public class ReportParser {
 		LOG.debug("--- parsing input");
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		InputSource is = new InputSource(new StringReader(sbIn.toString()));
 
@@ -42,10 +45,9 @@ public class ReportParser {
 
 		NodeList violationTags = xml.getElementsByTagName("violation");
 		Stream<Node> nodeStream = IntStream.range(0, violationTags.getLength()).mapToObj(violationTags::item);
-		Set<Node> filteredTags = nodeStream
+
+		return nodeStream
 				.filter(t -> t.getAttributes().getNamedItem("rule").getNodeValue().equals(rule))
 				.collect(Collectors.toSet());
-
-		return filteredTags;
 	}
 }

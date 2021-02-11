@@ -1,4 +1,4 @@
-package de.PMD_Report_Extractor;
+package de.pmd_report_extractor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,9 +20,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import de.PMD_Report_Extractor.util.ReportFormatter;
-import de.PMD_Report_Extractor.util.ReportParser;
-import de.PMD_Report_Extractor.util.ResourceFileHandler;
+import de.pmd_report_extractor.App;
+import de.pmd_report_extractor.util.ReportFormatter;
+import de.pmd_report_extractor.util.ReportParser;
+import de.pmd_report_extractor.util.ResourceFileHandler;
 
 @ExtendWith(MockitoExtension.class)
 public class AppTest {
@@ -59,6 +60,8 @@ public class AppTest {
 			App.main(args);
 
 			fileHandlerMock.verify(() -> ResourceFileHandler.writeToFile(args[1], sbMerge));
+			fileHandlerMock.verify(() -> ResourceFileHandler.writeToConsole(sbExtract, "result from extraction"));
+			fileHandlerMock.verify(() -> ResourceFileHandler.writeToConsole(sbMerge, "result from merge"));
 		}
 	}
 }

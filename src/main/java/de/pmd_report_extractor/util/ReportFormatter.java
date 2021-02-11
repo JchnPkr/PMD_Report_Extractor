@@ -1,4 +1,4 @@
-package de.PMD_Report_Extractor.util;
+package de.pmd_report_extractor.util;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -35,7 +35,7 @@ public class ReportFormatter {
 			count++;
 		}
 
-		LOG.debug("--- found " + count + " entries, formatted " + results.size() + " exclude entries");
+		LOG.debug("--- found {} entries, formatted {} exclude entries", count, results.size());
 
 		return transformToBuffer(results);
 	}
@@ -85,9 +85,9 @@ public class ReportFormatter {
 
 		if (!sb.toString().isEmpty()) {
 			if (sb.toString().contains("\n")) {
-				return new TreeSet<String>(Arrays.asList(sb.toString().split("\n", 0)));
+				return new TreeSet<>(Arrays.asList(sb.toString().split("\n", 0)));
 			} else {
-				return new TreeSet<String>(Arrays.asList(sb.toString()));
+				return new TreeSet<>(Arrays.asList(sb.toString()));
 			}
 		} else {
 			return new TreeSet<>();

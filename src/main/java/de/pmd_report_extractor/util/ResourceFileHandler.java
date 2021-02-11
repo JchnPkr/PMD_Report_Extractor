@@ -1,4 +1,4 @@
-package de.PMD_Report_Extractor.util;
+package de.pmd_report_extractor.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,7 +21,7 @@ public class ResourceFileHandler {
 		StringBuilder sbIn = new StringBuilder();
 
 		try (BufferedReader br = new BufferedReader(new FileReader(new File(path)))) {
-			LOG.debug("--- reading file: " + path);
+			LOG.debug("--- reading file: {}", path);
 
 			String line;
 
@@ -35,14 +35,14 @@ public class ResourceFileHandler {
 
 	public static void writeToFile(String path, StringBuilder sbOut) throws IOException {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path), false))) {
-			LOG.debug("--- writing file to: " + path);
+			LOG.debug("--- writing file to: {}", path);
 
 			bw.write(sbOut.toString());
 		}
 	}
 
 	public static void writeToConsole(StringBuilder sbOut, String contentTitle) {
-		LOG.info("--- begin of content " + contentTitle + ":\n" + sbOut.toString());
-		LOG.info("--- end of content " + contentTitle);
+		LOG.info("--- begin of content {}:\n{}", contentTitle, sbOut);
+		LOG.info("--- end of content {}", contentTitle);
 	}
 }

@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.PMD_Report_Extractor</groupId>
-	<artifactId>PMD_Report_Extractor</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<groupId>de.pmd_report_extractor</groupId>
+	<artifactId>pmd_report_extractor</artifactId>
+	<version>0.0.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>PMD_Report_Extractor</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/JchnPkr/PMD_Report_Extractor</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
