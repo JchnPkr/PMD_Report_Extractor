@@ -3,7 +3,6 @@ package de.PMD_Report_Extractor.util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class ResourceFileHandler {
 		super();
 	}
 
-	public static StringBuffer readFile(String path) throws IOException, FileNotFoundException {
+	public static StringBuffer readFile(String path) throws IOException {
 		StringBuffer sbIn = new StringBuffer();
 
 		try (BufferedReader br = new BufferedReader(new FileReader(new File(path)))) {

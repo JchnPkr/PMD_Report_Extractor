@@ -2,10 +2,13 @@ package de.PMD_Report_Extractor.util;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +24,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class ResourceFileHandlerTest {
+	private static final String RESOURCE_PATH = "src/test/resources/";
+	private static final String TESTFILE = "testFile.txt";
+
 	@Mock
 	private Appender mockedAppender;
 
@@ -28,15 +34,24 @@ class ResourceFileHandlerTest {
 	private ArgumentCaptor<LogEvent> loggingEventCaptor;
 
 	@Test
-	void readFileTest() {
-//		ResourceFileHandler.readFile(String path);
-		fail("Not yet implemented");
+	void readFileTest() throws IOException {
+		StringBuffer sb = ResourceFileHandler.readFile(RESOURCE_PATH + TESTFILE);
+
+		assertEquals("test content\n", sb.toString());
 	}
 
 	@Test
-	void writeToFileTest() {
-//		ResourceFileHandler.writeToFile(String path, StringBuffer sbOut);
-		fail("Not yet implemented");
+	void writeToFileTest() throws IOException {
+		String fileName = "out.txt";
+		String content = "test text";
+		StringBuffer sbOut = new StringBuffer().append(content);
+
+		ResourceFileHandler.writeToFile(RESOURCE_PATH + fileName, sbOut);
+
+		String result = new String(Files.readAllBytes(Paths.get(RESOURCE_PATH + fileName)));
+
+		Files.delete(Paths.get(RESOURCE_PATH + fileName));
+		assertEquals(content, result);
 	}
 
 	@Test
