@@ -63,8 +63,8 @@ class ResourceFileHandlerTest {
 
 		StringBuilder sbOut = new StringBuilder().append(msg);
 
-		String expectedMsg1 = "--- begin of content " + title + ":\n" + sbOut.toString();
-		String expectedMsg2 = "--- end of content " + title;
+		String expectedMsg1 = "begin of content " + title + ":\n" + sbOut.toString();
+		String expectedMsg2 = "end of content " + title;
 
 		when(mockedAppender.getName()).thenReturn("mockedAppender");
 		when(mockedAppender.isStarted()).thenReturn(true);

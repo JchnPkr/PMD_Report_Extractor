@@ -2,7 +2,7 @@
 <Configuration monitorInterval="30">
   <Appenders>
     <Console name="ConsoleAppender" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{ISO8601};%t;%x;%c{1};%M;%1p;-%m%n" />
+      <PatternLayout pattern="%d{ISO8601};%t;%x;%c{1};%M;%1p;-%replace{%msg}{[\r\n]}{}%n" />
     </Console>
   </Appenders>
   <Loggers>

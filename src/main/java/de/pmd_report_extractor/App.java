@@ -19,8 +19,22 @@ import de.pmd_report_extractor.util.ResourceFileHandler;
 public class App {
 	private static final Logger LOG = LogManager.getLogger(App.class);
 
+	/**
+	 * Expects three arguments separated with a blank space. 1. the path to the
+	 * report file, 2. the path to the exclude file, 3. the rule to add to the
+	 * exclude file
+	 * 
+	 * @param args
+	 *                 takes the arguments from console
+	 * @throws IOException
+	 *                                          Exception
+	 * @throws ParserConfigurationException
+	 *                                          Exception
+	 * @throws SAXException
+	 *                                          Exception
+	 */
 	public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
-		LOG.info("--- rule extraction started...");
+		LOG.info("rule extraction started...");
 
 		if (args.length == 3) {
 			final String pathToPmdResource = args[0];
@@ -43,6 +57,6 @@ public class App {
 							+ "and a PMD rule are mandatory.\n Arguments given: " + Arrays.toString(args));
 		}
 
-		LOG.info("--- report extracted successfully");
+		LOG.info("report extracted successfully");
 	}
 }

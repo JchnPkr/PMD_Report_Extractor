@@ -10,4 +10,16 @@
     <Match>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE" />
     </Match>
+    <!-- ist mit ACCESS_EXTERNAL abgesichert -->
+    <Match>
+		<Bug pattern="XXE_DOCUMENT" />
+	</Match>
+	<!-- in log configs abgesichert -->
+	<Match>
+		<Bug pattern="CRLF_INJECTION_LOGS" />
+	</Match>
+	<!-- irgendwas is immer -->
+	<Match>
+		<Bug pattern="PATH_TRAVERSAL_IN" />
+	</Match>
 </FindBugsFilter>

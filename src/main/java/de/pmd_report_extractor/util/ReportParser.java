@@ -27,9 +27,22 @@ public class ReportParser {
 		super();
 	}
 
+	/**
+	 * Parses xml content into a document.
+	 * 
+	 * @param sbIn
+	 *                 StringBuilder containing the xml file content
+	 * @return the doc from input
+	 * @throws ParserConfigurationException
+	 *                                          Exception
+	 * @throws SAXException
+	 *                                          Exception
+	 * @throws IOException
+	 *                                          Exception
+	 */
 	public static Document parseToXml(StringBuilder sbIn)
 			throws ParserConfigurationException, SAXException, IOException {
-		LOG.debug("--- parsing input");
+		LOG.debug("parsing input");
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
@@ -40,8 +53,17 @@ public class ReportParser {
 		return builder.parse(is);
 	}
 
+	/**
+	 * Filters all nodes from xml doc matching the given rule.
+	 * 
+	 * @param xml
+	 *                 the document containing the pmd report
+	 * @param rule
+	 *                 the rule to exclude
+	 * @return nodes matching rule
+	 */
 	public static Set<Node> filterByRule(Document xml, String rule) {
-		LOG.debug("--- filtering input");
+		LOG.debug("filtering input");
 
 		NodeList violationTags = xml.getElementsByTagName("violation");
 		Stream<Node> nodeStream = IntStream.range(0, violationTags.getLength()).mapToObj(violationTags::item);

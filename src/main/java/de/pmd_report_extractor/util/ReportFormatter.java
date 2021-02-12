@@ -17,8 +17,16 @@ public class ReportFormatter {
 		super();
 	}
 
+	/**
+	 * Returns a StringBuilder with formatted entries from node list.
+	 * 
+	 * @param filteredNodes
+	 *                          a set of nodes of the same rule is expected
+	 * @return a StringBuilder with formatted and line break separated entries from
+	 *         node list
+	 */
 	public static StringBuilder formatToExcludeStyle(Set<Node> filteredNodes) {
-		LOG.debug("--- formatting node entries");
+		LOG.debug("formatting node entries");
 
 		Set<String> results = new TreeSet<>();
 		int count = 0;
@@ -35,25 +43,25 @@ public class ReportFormatter {
 			count++;
 		}
 
-		LOG.debug("--- found {} entries, formatted {} exclude entries", count, results.size());
+		LOG.debug("found {} entries, formatted {} exclude entries", count, results.size());
 
-		return transformToBuffer(results);
+		return transformToStringBuilder(results);
 	}
 
 	/**
 	 * Merges resource and exclude file entries by adding an existing path from
 	 * exclude file with it's rules to the new exclude entries from resource or
-	 * appending
+	 * appending sbResource and sbExtract should be formatted the same way:
+	 * pathToFile.filename.java=rule,anotherRule
 	 * 
-	 * sbResource and sbExtract should be formatted the same way:
-	 * pathToFile/filename.java=rule
-	 * 
-	 * @param sbExclude existing entries from exclude file
-	 * @param sbExtract new extracted entries from report
+	 * @param sbExclude
+	 *                      existing entries from exclude file
+	 * @param sbExtract
+	 *                      new extracted entries from report
 	 * @return the merged exclude entries
 	 */
 	public static StringBuilder merge(StringBuilder sbExclude, StringBuilder sbExtract) {
-		LOG.debug("--- merging excludes resource with report extracts");
+		LOG.debug("merging excludes resource with report extracts");
 
 		Set<String> excludeEntries = transformToSet(sbExclude);
 		Set<String> extractEntries = transformToSet(sbExtract);
@@ -66,28 +74,28 @@ public class ReportFormatter {
 				Optional<String> match = excludeEntries.stream().filter(r -> r.contains(path)).findFirst();
 				updateOrAddExcludeEntry(excludeEntries, extractEntry, newRule, match);
 			} else {
-				LOG.debug("--- skipping empty line");
+				LOG.debug("skipping empty line");
 			}
 		});
 
-		return transformToBuffer(excludeEntries);
+		return transformToStringBuilder(excludeEntries);
 	}
 
 	/**
-	 * return a sorted set from entries separated by line break in buffer
+	 * Returns a sorted set from entries separated by line break in buffer.
 	 * 
 	 * @param sb
+	 *               a StringBuilder
 	 * @return line break separated entries as set
 	 */
 	private static Set<String> transformToSet(StringBuilder sb) {
 		String tmp = sb.toString().replaceAll("\r", "");
-		sb = new StringBuilder(tmp);
 
-		if (!sb.toString().isEmpty()) {
-			if (sb.toString().contains("\n")) {
-				return new TreeSet<>(Arrays.asList(sb.toString().split("\n", 0)));
+		if (!tmp.isEmpty()) {
+			if (tmp.contains("\n")) {
+				return new TreeSet<>(Arrays.asList(tmp.split("\n", 0)));
 			} else {
-				return new TreeSet<>(Arrays.asList(sb.toString()));
+				return new TreeSet<>(Arrays.asList(tmp));
 			}
 		} else {
 			return new TreeSet<>();
@@ -95,13 +103,17 @@ public class ReportFormatter {
 	}
 
 	/**
-	 * adds new exclude entry or appends new rule to existing exclude path
+	 * Adds new exclude entry or appends new rule to existing exclude path.
 	 * 
-	 * @param excludeEntries old exclude entries which get updated
-	 * @param extractEntry   new entry from extract with path and rule
-	 * @param newRule        the new rule to exclude
-	 * @param match          entry from exclude file with matching exclude path and
-	 *                       old rules
+	 * @param excludeEntries
+	 *                           old exclude entries which get updated
+	 * @param extractEntry
+	 *                           new entry from extract with path and rule
+	 * @param newRule
+	 *                           the new rule to exclude
+	 * @param match
+	 *                           entry from exclude file with matching exclude path
+	 *                           and old rules
 	 */
 	private static void updateOrAddExcludeEntry(Set<String> excludeEntries, String extractEntry, String newRule,
 			Optional<String> match) {
@@ -120,12 +132,13 @@ public class ReportFormatter {
 	}
 
 	/**
-	 * creates a StringBuilder from the given set entries, separated by line break
+	 * Creates a StringBuilder from the given set entries, separated by line break.
 	 * 
-	 * @param excludeEntries
+	 * @param entries
+	 *                    set of entries to
 	 * @return a StringBuilder with the given entries
 	 */
-	private static StringBuilder transformToBuffer(Set<String> excludeEntries) {
-		return new StringBuilder().append(StringUtils.join(excludeEntries.toArray(), "\n"));
+	private static StringBuilder transformToStringBuilder(Set<String> entries) {
+		return new StringBuilder().append(StringUtils.join(entries.toArray(), "\n"));
 	}
 }

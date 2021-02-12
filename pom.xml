@@ -111,7 +111,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>de.PMD_Report_Extractor.App</mainClass>
+							<mainClass>de.pmd_report_extractor.App</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
