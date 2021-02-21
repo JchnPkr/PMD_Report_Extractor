@@ -19,6 +19,9 @@ import de.pmd_report_extractor.util.ResourceFileHandler;
 public class App {
 	private static final Logger LOG = LogManager.getLogger(App.class);
 
+	private App() {
+	}
+
 	/**
 	 * Expects three arguments separated with a blank space. 1. the path to the
 	 * report file, 2. the path to the exclude file, 3. the rule to add to the
