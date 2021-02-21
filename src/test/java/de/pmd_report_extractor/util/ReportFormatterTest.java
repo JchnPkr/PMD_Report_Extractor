@@ -22,7 +22,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import builder.XMLStringBuilder;
-import de.pmd_report_extractor.util.ReportFormatter;
 
 class ReportFormatterTest {
 	private static final Logger LOG = LogManager.getLogger(ReportFormatterTest.class);
@@ -43,9 +42,10 @@ class ReportFormatterTest {
 							+ "de.zivit.kista.anfrage.service.impl.FuServiceService=AvoidCatchingGenericException\r\n"
 							+ "de.zivit.kista.dataaccess.AnotherService=AvoidCatchingGenericException\r\n");
 
-			StringBuilder sbResource = new StringBuilder("de.anyName.service.impl.Service=AvoidLiteralsInIfCondition\r\n"
-					+ "de.zivit.kista.anfrage.service.impl.FuServiceService=AvoidCatchingGenericException,ExcessiveImports\r\n"
-					+ "de.zivit.kista.antwort.service.impl.BarServiceService=MoreThanOneLogger\r\n");
+			StringBuilder sbResource = new StringBuilder(
+					"de.anyName.service.impl.Service=AvoidLiteralsInIfCondition\r\n"
+							+ "de.zivit.kista.anfrage.service.impl.FuServiceService=AvoidCatchingGenericException,ExcessiveImports\r\n"
+							+ "de.zivit.kista.antwort.service.impl.BarServiceService=MoreThanOneLogger\r\n");
 
 			StringBuilder result = ReportFormatter.merge(sbResource, sbExtract);
 

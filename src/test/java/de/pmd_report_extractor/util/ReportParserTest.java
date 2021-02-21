@@ -19,7 +19,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import builder.XMLStringBuilder;
-import de.pmd_report_extractor.util.ReportParser;
 
 class ReportParserTest {
 

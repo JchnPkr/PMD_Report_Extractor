@@ -22,8 +22,6 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import de.pmd_report_extractor.util.ResourceFileHandler;
-
 @ExtendWith(MockitoExtension.class)
 class ResourceFileHandlerTest {
 	private static final String RESOURCE_PATH = "src/test/resources/";
