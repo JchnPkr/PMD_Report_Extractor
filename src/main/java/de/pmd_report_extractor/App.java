@@ -26,12 +26,6 @@ public class App {
 	 * 
 	 * @param args
 	 *                 takes the arguments from console
-	 * @throws IOException
-	 *                                          Exception
-	 * @throws ParserConfigurationException
-	 *                                          Exception
-	 * @throws SAXException
-	 *                                          Exception
 	 */
 	public static void main(String[] args) {
 		LOG.info("rule extraction started...");
