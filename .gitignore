@@ -1,4 +1,4 @@
 **/target
 *.MF
 pom.properties
-/.attach_pid17558
+/.attach_pid*
